@@ -10,7 +10,7 @@ Permite gestionar tareas personales (CRUD completo) a través de una API REST.
 - Java 21
 - Spring Boot 3
 - Spring Data JPA
-- H2 Database (modo memoria)
+- PostgreSQL
 - Spring Boot Starter Validation
 - Maven
 
@@ -24,6 +24,7 @@ Permite gestionar tareas personales (CRUD completo) a través de una API REST.
     - Descripción obligatoria, máximo 250 caracteres.
     - Fecha de vencimiento debe ser futura.
 - Manejo global de errores con respuestas formateadas en JSON.
+- Conexión a base de datos real PostgreSQL.
 - Estructura por capas (Controller, Service, Repository, Model, Exception).
 
 ---
@@ -42,66 +43,47 @@ Permite gestionar tareas personales (CRUD completo) a través de una API REST.
 
 ## 🛠️ Cómo ejecutar el proyecto
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/pramirezd/gestor-tareas-springboot.git
+1. Asegúrate de tener PostgreSQL instalado y ejecutándose.
+2. Crea una base de datos y usuario con acceso:
+
+   ```sql
+   CREATE USER gestoruser WITH PASSWORD 'gestorpass';
+   CREATE DATABASE gestortareas OWNER gestoruser;
    ```
 
-2. Abre el proyecto en IntelliJ IDEA (Ultimate o Community).
+3. Abre el proyecto en IntelliJ IDEA.
 
-3. Ejecuta la clase principal:
+4. Ejecuta la clase principal:
    ```
    com.pabloramirez.gestortareas.GestorTareasApplication
    ```
 
-4. Accede a la API en:
+5. Accede a la API en:
    ```
    http://localhost:8080/api/tareas
    ```
 
-5. Puedes probar los endpoints con herramientas como Postman o curl.
+6. Puedes probar los endpoints con herramientas como Postman o DBeaver.
 
 ---
 
-## 🔍 Ejemplos de validación
+## 🔧 Configuración de `application.properties`
 
-- Intentar crear una tarea sin título:
-  ```json
-  {
-    "titulo": "",
-    "descripcion": "Falta el título",
-    "fechaVencimiento": "2025-12-31",
-    "completada": false
-  }
-  ```
-  Respuesta esperada:
-  ```json
-  {
-    "titulo": "El título no puede estar vacío"
-  }
-  ```
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/gestortareas
+spring.datasource.username=gestoruser
+spring.datasource.password=gestorpass
 
-- Intentar crear una tarea con descripción demasiado larga:
-  ```json
-  {
-    "titulo": "Tarea",
-    "descripcion": "Lorem ipsum dolor sit amet..." (más de 250 caracteres),
-    "fechaVencimiento": "2025-12-31",
-    "completada": false
-  }
-  ```
-  Respuesta esperada:
-  ```json
-  {
-    "descripcion": "La descripción no puede tener más de 250 caracteres"
-  }
-  ```
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
 
 ---
 
 ## 📌 Próximas mejoras
 
-- Persistencia con PostgreSQL
 - Filtros de búsqueda por estado o por fecha
 - Documentación automática con Swagger/OpenAPI
 - Seguridad con Spring Security (JWT o auth básica)
@@ -111,5 +93,5 @@ Permite gestionar tareas personales (CRUD completo) a través de una API REST.
 
 ## 👤 Autor
 
-**Pablo Ramírez Delgado**  
+**Pablo Ramírez**  
 [GitHub: pramirezd](https://github.com/pramirezd)
