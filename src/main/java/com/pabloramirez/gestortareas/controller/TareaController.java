@@ -2,12 +2,15 @@ package com.pabloramirez.gestortareas.controller;
 
 import com.pabloramirez.gestortareas.model.Tarea;
 import com.pabloramirez.gestortareas.service.TareaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/tareas")
 public class TareaController {
@@ -32,12 +35,12 @@ public class TareaController {
     }
 
     @PostMapping
-    public Tarea crear(@RequestBody Tarea tarea) {
+    public Tarea crear(@Valid @RequestBody Tarea tarea) {
         return tareaService.crearTarea(tarea);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tarea> actualizar(@PathVariable Long id, @RequestBody Tarea tarea) {
+    public ResponseEntity<Tarea> actualizar(@PathVariable Long id, @Valid @RequestBody Tarea tarea) {
         try {
             Tarea actualizada = tareaService.actualizarTarea(id, tarea);
             return ResponseEntity.ok(actualizada);
