@@ -26,18 +26,36 @@ Permite gestionar tareas personales (CRUD completo) a través de una API REST.
 - Manejo global de errores con respuestas formateadas en JSON.
 - Conexión a base de datos real PostgreSQL.
 - Estructura por capas (Controller, Service, Repository, Model, Exception).
+- 🆕 Filtros de búsqueda por estado (`completada`) y fecha (`fechaAntes`, `fechaDespues`).
 
 ---
 
 ## 📬 Endpoints principales
 
-| Método | Ruta                   | Descripción                        |
-|--------|------------------------|------------------------------------|
-| GET    | `/api/tareas`          | Listar todas las tareas            |
-| GET    | `/api/tareas/{id}`     | Obtener una tarea por ID           |
-| POST   | `/api/tareas`          | Crear una nueva tarea              |
-| PUT    | `/api/tareas/{id}`     | Actualizar una tarea existente     |
-| DELETE | `/api/tareas/{id}`     | Eliminar una tarea por su ID       |
+| Método | Ruta               | Descripción                               |
+|--------|--------------------|-------------------------------------------|
+| GET    | `/api/tareas`      | Listar todas las tareas o aplicar filtros |
+| GET    | `/api/tareas/{id}` | Obtener una tarea por ID                  |
+| POST   | `/api/tareas`      | Crear una nueva tarea                     |
+| PUT    | `/api/tareas/{id}` | Actualizar una tarea existente            |
+| DELETE | `/api/tareas/{id}` | Eliminar una tarea por su ID              |
+
+---
+
+## 🔍 Uso de filtros (GET `/api/tareas`)
+
+Puedes usar los siguientes parámetros opcionales en tus peticiones:
+
+- `completada`: `true` o `false`
+- `fechaAntes`: filtra tareas con vencimiento **antes o igual a** la fecha dada (formato `YYYY-MM-DD`)
+- `fechaDespues`: filtra tareas con vencimiento **después o igual a** la fecha dada
+
+Ejemplos:
+```
+/api/tareas?completada=true
+/api/tareas?fechaAntes=2025-12-31
+/api/tareas?completada=false&fechaDespues=2025-07-01
+```
 
 ---
 
@@ -84,7 +102,6 @@ spring.jpa.properties.hibernate.format_sql=true
 
 ## 📌 Próximas mejoras
 
-- Filtros de búsqueda por estado o por fecha
 - Documentación automática con Swagger/OpenAPI
 - Seguridad con Spring Security (JWT o auth básica)
 - Interfaz web con React o Angular
