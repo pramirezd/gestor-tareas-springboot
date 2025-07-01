@@ -1,0 +1,9 @@
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/GestorTareasApplication.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/config/OpenApiConfig.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/controller/SwaggerTestController.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/controller/TareaController.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/exception/GlobalExceptionHandler.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/exception/RecursoNoEncontradoException.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/model/Tarea.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/repository/TareaRepository.java
+/Users/pablo/IdeaProjects/gestor-tareas/src/main/java/com/pabloramirez/gestortareas/service/TareaService.java
