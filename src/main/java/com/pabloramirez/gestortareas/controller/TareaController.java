@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -32,6 +33,7 @@ public class TareaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de tareas obtenida exitosamente")
     })
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public List<Tarea> obtenerTareasFiltradas(
             @Parameter(description = "Filtrar por estado de completado")
             @RequestParam(required = false) Boolean completada,
@@ -49,6 +51,7 @@ public class TareaController {
             @ApiResponse(responseCode = "200", description = "Tarea encontrada"),
             @ApiResponse(responseCode = "404", description = "Tarea no encontrada")
     })
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Tarea> obtenerTareaPorId(
             @Parameter(description = "ID de la tarea", required = true)
             @PathVariable Long id) {
@@ -62,6 +65,7 @@ public class TareaController {
             @ApiResponse(responseCode = "201", description = "Tarea creada exitosamente"),
             @ApiResponse(responseCode = "400", description = "Datos de tarea inválidos")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Tarea> crearTarea(@Valid @RequestBody Tarea tarea) {
         Tarea nuevaTarea = tareaService.crearTarea(tarea);
         return new ResponseEntity<>(nuevaTarea, HttpStatus.CREATED);
@@ -74,6 +78,7 @@ public class TareaController {
             @ApiResponse(responseCode = "404", description = "Tarea no encontrada"),
             @ApiResponse(responseCode = "400", description = "Datos de tarea inválidos")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Tarea> actualizarTarea(
             @Parameter(description = "ID de la tarea", required = true)
             @PathVariable Long id,
@@ -88,6 +93,7 @@ public class TareaController {
             @ApiResponse(responseCode = "204", description = "Tarea eliminada exitosamente"),
             @ApiResponse(responseCode = "404", description = "Tarea no encontrada")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> eliminarTarea(
             @Parameter(description = "ID de la tarea", required = true)
             @PathVariable Long id) {

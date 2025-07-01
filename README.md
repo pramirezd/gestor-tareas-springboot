@@ -1,106 +1,115 @@
-# 📝 Gestor de Tareas - API REST con Spring Boot
+# 📋 Gestor de Tareas Spring Boot
 
-Este proyecto es una aplicación de ejemplo desarrollada con Spring Boot, que permite gestionar tareas a través de una API REST. Esta versión incorpora integración con Swagger UI para documentación automática de los endpoints.
-
----
-
-## 🚀 Instalación y Ejecución
-
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/pramirezd/gestor-tareas.git
-   cd gestor-tareas
-   ```
-
-2. Configurar la base de datos PostgreSQL:
-   Asegúrate de tener una instancia de PostgreSQL corriendo y crea una base de datos llamada `gestortareas`.
-
-3. Modificar las credenciales en `src/main/resources/application.properties` si es necesario:
-   ```
-   spring.datasource.username=gestoruser
-   spring.datasource.password=gestorpass
-   ```
-
-4. Ejecutar la aplicación:
-   ```bash
-   mvn spring-boot:run
-   ```
+Aplicación web desarrollada con **Spring Boot 3**, **Java 21**, **PostgreSQL** y **Swagger UI**, que permite gestionar tareas de forma eficiente. Incluye autenticación con **JWT**, protección de rutas, validaciones, filtros de búsqueda y un modelo listo para escalar.
 
 ---
 
-## 🧪 Uso de la API
-
-Puedes probar los endpoints directamente desde Swagger UI:
-
-- [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-
-Los endpoints disponibles permiten crear, leer, actualizar y eliminar tareas (`CRUD`), además de aplicar filtros por estado y fechas.
-
----
-
-## 📘 Documentación Swagger / OpenAPI
-
-Esta aplicación incluye Swagger UI habilitado mediante la dependencia:
-
-```xml
-<dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.2.0</version>
-</dependency>
-```
-
-Compatible con `Spring Boot 3.3.5`.
-
----
-
-## 🔧 Tecnologías Utilizadas
+## 🚀 Tecnologías utilizadas
 
 - Java 21
-- Spring Boot 3.3.5
-- Maven
+- Spring Boot 3
+- Spring Web
+- Spring Data JPA
+- Spring Security + JWT
 - PostgreSQL
-- Swagger UI (Springdoc OpenAPI)
-- HikariCP (pool de conexiones)
-- Hibernate / Spring Data JPA
+- Swagger / OpenAPI
+- Maven
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## 🛠️ Levantar el proyecto
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/pramirezd/gestor-tareas-springboot.git
+cd gestor-tareas-springboot
+```
+
+2. Crea una base de datos PostgreSQL con nombre `gestortareas`.
+
+3. Configura tus credenciales en `src/main/resources/application.properties`:
 
 ```
-gestor-tareas
-├── controller
-│   └── TareaController.java
-├── model
-│   └── Tarea.java
-├── repository
-│   └── TareaRepository.java
-├── service
-│   └── TareaService.java
-├── resources
-│   └── application.properties
-├── GestorTareasApplication.java
+spring.datasource.url=jdbc:postgresql://localhost:5432/gestortareas
+spring.datasource.username=gestoruser
+spring.datasource.password=gestorpass
+jwt.secret=esteEsUnSuperSecretoJWTconMasDe256BitsDeLongitud1234567890!
+```
+
+4. Levanta la app desde tu IDE o por terminal:
+
+```bash
+./mvnw spring-boot:run
 ```
 
 ---
 
-## 👤 Autor
+## 🔐 Seguridad con JWT
+
+El proyecto ahora cuenta con autenticación JWT:
+
+- Endpoint público para login: `POST /auth/login`
+- Endpoints protegidos bajo `/api/**`
+- Roles definidos (`ADMIN`, `USER`) con control de acceso por anotaciones y configuración de rutas
+- Filtro JWT para validar token en cada request
+
+### 🧪 Probar en Postman
+
+1. Realiza login:
+
+```http
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+2. Copia el token `accessToken` devuelto y úsalo en los siguientes requests:
+
+```
+Authorization: Bearer TU_TOKEN
+```
+
+---
+
+## 📚 Documentación Swagger
+
+Accede a la documentación generada automáticamente:
+
+📄 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+---
+
+## 🧩 Funcionalidades actuales
+
+- CRUD de tareas
+- Validación de datos
+- Filtros de búsqueda por estado y fechas
+- Documentación OpenAPI (Swagger)
+- Autenticación y autorización JWT
+
+---
+
+## 🧠 Próximos pasos
+
+- [ ] Crear interfaz web con React
+- [ ] Implementar modelo de usuarios:
+   - `ADMIN`: puede crear tareas propias y para otros usuarios
+   - `USER`: puede ver las tareas asignadas y gestionar las propias
+- [ ] Carga masiva de tareas por archivo CSV
+
+---
+
+## 👨‍💻 Autor
 
 **Pablo Ramírez**
 
 ---
 
-## 🚧 Próximos Pasos
+## 📄 Licencia
 
-- ✅ Filtros de búsqueda por estado o fecha
-- ✅ Integración con Swagger/OpenAPI
-- 🔒 Seguridad con Spring Security (JWT o Basic Auth)
-- 🖥️ Interfaz web con React
-- 📝 Deploy en entorno público (Render, Railway, etc.)
-
----
-
-## 🗒️ Notas
-
-- Se detectó una incompatibilidad con `springdoc-openapi` en versiones 3.5.x de Spring Boot. Se hizo downgrade a la versión `3.3.5` para asegurar compatibilidad con `springdoc 2.2.0`.
+Este proyecto es de código abierto bajo licencia MIT.
