@@ -1,26 +1,57 @@
-# Maven
-/target
-!.mvn/wrapper/maven-wrapper.jar
-.mvn/wrapper/maven-wrapper.properties
-.mvn/wrapper/maven-wrapper.jar
+# Node, Vite, React, Java, Maven
+node_modules/
+dist/
+build/
+.env
+.env.*.local
 
-# Eclipse
-.classpath
-.project
-.settings/
-
-# IntelliJ IDEA
-.idea/
+# Java / Maven
+target/
+*.log
+*.class
+*.jar
+*.war
 *.iml
+
+# IDEs y editores
+.idea/
 *.iws
+*.ipr
+*.iml
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# IntelliJ & JetBrains
 out/
+.gradle/
+.mvn/
+!backend/.mvn/
+!backend/mvnw*
+!backend/pom.xml
 
 # Logs
-*.log
 
-# OS Files
-.DS_Store
-Thumbs.db
+# Coverage
+coverage/
+*.lcov
 
-# Environment files
-.env
+# Others
+*.swp
+*.tmp
+
+# Explicit include (por si hay alguna regla más arriba)
+!backend/
+!frontend/
+!README.md
